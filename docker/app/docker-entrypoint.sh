@@ -7,13 +7,11 @@ if [ "${1#-}" != "$1" ]; then
 fi
 
 if [ "$1" = 'php-fpm' ] || [ "$1" = 'bin/console' ]; then
-	# Detect the host IP
-	export DOCKER_BRIDGE_IP
-	DOCKER_BRIDGE_IP=$(ip ro | grep default | cut -d' ' -f 3)
-
-	if [ "$SYMFONY_ENV" = 'prod' ]; then
-		composer install --prefer-dist --no-dev --no-progress --no-suggest --optimize-autoloader --classmap-authoritative --no-interaction
-	else
+	if [ "$APP_ENV" != 'prod' ]; then
+	    if [ ! -f composer.json ]; then
+	        php -r "copy('$SKELETON_COMPOSER_JSON', 'composer.json');"
+        fi
+	    mkdir -p var
 		composer install --prefer-dist --no-progress --no-suggest --no-interaction
 	fi
 
