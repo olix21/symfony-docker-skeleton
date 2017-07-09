@@ -15,7 +15,6 @@ RUN set -xe \
 		zlib-dev \
 	&& docker-php-ext-install \
 		intl \
-		pdo_mysql \
 		zip \
 	&& pecl install \
 		apcu-${APCU_VERSION} \
@@ -42,7 +41,7 @@ WORKDIR /srv/app
 
 COPY . .
 # Cleanup unneeded files
-RUN rm -Rf docker/ Dockerfile docker-compose.yml
+RUN rm -Rf docker/
 
 # Download the Symfony skeleton
 ENV SKELETON_COMPOSER_JSON https://raw.githubusercontent.com/symfony/skeleton/v3.3.2/composer.json
