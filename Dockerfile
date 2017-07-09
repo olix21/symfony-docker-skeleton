@@ -48,10 +48,7 @@ RUN rm -Rf docker/ Dockerfile docker-compose.yml
 ENV SKELETON_COMPOSER_JSON https://raw.githubusercontent.com/symfony/skeleton/v3.3.2/composer.json
 RUN [ -f composer.json ] || php -r "copy('$SKELETON_COMPOSER_JSON', 'composer.json');"
 
-RUN mkdir -p \
-		var/cache \
-		var/logs \
-		var/sessions \
+RUN mkdir -p var/cache var/logs var/sessions \
     && composer install --prefer-dist --no-dev --no-progress --no-suggest --optimize-autoloader --classmap-authoritative --no-interaction \
 	&& composer clear-cache \
 # Permissions hack because setfacl does not work on Mac and Windows
