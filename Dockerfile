@@ -22,6 +22,9 @@ RUN set -xe \
 	&& docker-php-ext-enable --ini-name 05-opcache.ini opcache \
 	&& apk del .build-deps
 
+###> recipes ###
+###< recipes ###
+
 COPY docker/app/php.ini /usr/local/etc/php/php.ini
 
 COPY docker/app/install-composer.sh /usr/local/bin/docker-app-install-composer
